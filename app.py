@@ -1,5 +1,5 @@
 from lib.database_connection import DatabaseConnection
-from lib.recipe_repository import RecipeRepository
+from lib.post_repository import PostRepository
 
 
 # Connect to the database
@@ -7,12 +7,10 @@ connection = DatabaseConnection()
 connection.connect()
 
 # Seed with some seed data
-connection.seed("seeds/recipes.sql")
+connection.seed("seeds/blog_posts.sql")
 
-# Retrieve all recipes
-recipe_repository = RecipeRepository(connection)
-recipes = recipe_repository.all()
+repository = PostRepository(connection)
 
-# List them out
-for recipe in recipes:
-    print(recipe)
+post = repository.find_with_comments(1)
+
+print(post)
